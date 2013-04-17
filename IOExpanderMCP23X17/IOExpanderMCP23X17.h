@@ -11,32 +11,34 @@
 #ifndef __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_H__
 #define __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_H__ 1
 
-#include <Arduino.h>
 #include <Wire.h>
+#include <Arduino.h>
 #include <IOExpander.h>
 
-#define pinNormalized(p)    ((p) & 0x0f)
-#define isPinValid(p)       ((pinNormalized(p) < 16)
+#define IO_EX_MAX_PINS                          16
+
+#define IO_EXP_NORMALIZE_PIN(p)                 (((p) >= IO_EX_MAX_PINS ? IO_EX_MAX_PINS - 1 : (((p) < 0) ? 0 : (p)))
+#define IO_EXP_IS_PIN_VALID(p)                  ((p) < IO_EX_MAX_IO && (p) >= 0)
+#define IO_EXP_PIN_TO_GPIO_REG(p)               ((p) < 8 ? GPIOA : GPIOB)
+#define IO_EXP_PIN_TO_IODIR_REG(p)              ((p) < 8 ? IODIRA : IODIRB)
+#define IO_EXP_PORT_TO_IODIR_REG(p)             ((p) == PORT_A ? IODIRA : IODIRB)
+#define IO_EXP_PIN_TO_GPPU_REG(p)               ((p) < 8 ? GPPUA : GPPUB)
+#define IO_EXP_PIN_TO_IPOL_REG(p)               ((p) < 8 ? IPOLA : IPOLB)
+#define IO_EXP_PIN_TO_GPINTEN_REG(p)            ((p) < 8 ? GPINTENA : GPINTENB)
 
 class IOExpanderMCP23X17 {
 
     /**
-     * I2C address.
+     * I2C device address.
      */
     unsigned char device;
-    
-    /**
-     * Continuous actions flags.
-     */
-    unsigned char isContinuousReading;
-    unsigned char isContinuousWriting;
-    SequentialOperationMode currentSequentialMode;
+
+    unsigned char currentSequentialOperationMode;
 
 public:
 
     enum SequentialOperationMode {
-        SEQUENTIAL_OP_ENABLE = 0x00,
-        SEQUENTIAL_OP_DISABLE = 0xff,
+        SEQUENTIAL_MODE_ENABLE = 0x00, SEQUENTIAL_MODE_DISABLE = 0xff,
     };
 
     enum Register {
@@ -51,7 +53,7 @@ public:
         INTCONA = 0x08,
         INTCONB = 0x09,
         IOCON = 0x0a,
-        IOCON = 0x0b,
+//        IOCON = 0x0b,
         GPPUA = 0x0c,
         GPPUB = 0x0d,
         INTFA = 0x0e,
@@ -64,6 +66,14 @@ public:
         OLATB = 0x15
     };
 
+    enum Port {
+        PORT_A = GPIOA, PORT_B = GPIOB
+    };
+
+    enum Direction {
+        OUT = 0x00, IN = 0xff
+    };
+
     enum Mask {
         IOCON_BANK = 0x80,
         IOCON_MIRROR = 0x40,
@@ -74,35 +84,123 @@ public:
         IOCON_INTPOL = 0x02
     };
 
-    void begin(unsigned char device);
-
-    void pinMode(unsigned char pin, bool mode);
-
-    void digitalWrite(unsigned char pin, bool value);
-
-    bool digitalRead(unsigned char pin);
-
-    void setPin(unsigned char pin);
-
-    void clearPin(unsigned char pin);
-
-    void setPullUp(unsigned char pin, bool up);
-
-    void inline setSequentialOperationMode(SequentialOperationMode mode) {
-        if (mode != currentSequentialMode) {
-            configureRegisterBits(IOCON, IOCON_SEQOP, mode);
-        }
-    }
-
+    enum Pin {
+        PIN_A0 = 0,
+        PIN_A1 = 1,
+        PIN_A2 = 2,
+        PIN_A3 = 3,
+        PIN_A4 = 4,
+        PIN_A5 = 5,
+        PIN_A6 = 6,
+        PIN_A7 = 7,
+        PIN_B0 = 8,
+        PIN_B1 = 9,
+        PIN_B2 = 10,
+        PIN_B3 = 11,
+        PIN_B4 = 12,
+        PIN_B5 = 13,
+        PIN_B6 = 14,
+        PIN_B7 = 15
+    };
 
     /**
-     * Configures a registers inside the camera.
+     * Begins the IO expander divice.
+     *
+     * @param device            The device address, or just the last 3 pins combination;
+     */
+    void begin(unsigned char device);
+
+    /**
+     * Configures the specified pin to behave either as an input or an output.
+     *
+     * @param pin               The pin number.
+     * @param mode              1 means input, 0 means output.
+     */
+    void pinMode(unsigned char pin, bool mode);
+
+    /**
+     * Configures a port to behave either as an input or an output.
+     *
+     * @param port              The port.
+     * @param mode              The mode.
+     */
+    void portMode(Port port, unsigned char mode);
+
+    /**
+     * Write a HIGH or a LOW value to a pin.
+     *
+     * @param pin               The pin number.
+     * @param value             LOW or WRITE.
+     */
+    void digitalWrite(unsigned char pin, bool value);
+
+    /**
+     * Reads the value from a specified pin, either HIGH or LOW.
+     *
+     * @param pin               The pin number.
+     */
+    bool digitalRead(unsigned char pin);
+
+    /**
+     * Writes value to a port.
+     *
+     * @param port              The port to write.
+     * @param value             The value to write to the port.
+     */
+    void inline portWrite(Port port, unsigned char value) {
+        writeRegister((Register) port, value);
+    }
+
+    /**
+     * Reads a port.
+     *
+     * @param port              The port to write.
+     * @return                  The value associated with the port.
+     */
+    unsigned char inline portRead(Port port) {
+        return readRegister((Register) port);
+    }
+
+    /**
+     * Configures the pullup resistor for a given pin.
+     *
+     * @param pin               The pin number.
+     * @param pullUp            0 means with, 1 means witout pullup.
+     */
+    void setPinPullUp(unsigned char pin, bool pullUp);
+
+    /**
+     * Configures the polarity for a given pin.
+     *
+     * @param pin               The pin number.
+     * @param pullUp            0 means normal, 1 means inverted polarity.
+     */
+    void setPinPolarity(unsigned char pin, bool polarity);
+
+    /**
+     * Configures a pin to clear or set the interrupt.
+     *
+     * @param pin               The pin number.
+     * @param pullUp            0 means interrupt disable, 1 means interrupt enable.
+     */
+    void setPinInterrupt(unsigned char pin, bool interrupt);
+
+    /**
+     * Configures the sequential/continuous operation mode.
+     *
+     * @param mode              The operation mode.
+     */
+    void setSequentialOperationMode(SequentialOperationMode mode);
+
+    /**
+     * Configures a registers.
      *
      * @param reg           The register number.
      * @param mask          The mask to be used.
      * @param v             The value to be used.
      */
-    void configureRegisterBits(Register reg, unsigned char mask, unsigned char value);
+    void configureRegisterBits(Register reg, unsigned char mask,
+            unsigned char value);
 
     /**
      * Writes a value to a register.
@@ -121,44 +219,45 @@ public:
     unsigned char readRegister(Register reg);
 
     /**
-     * Starts a continuous writing transaction.
+     * Starts a continuous write transaction.
      * 
      * @param reg           The register to write on.
      */
     void continuousWriteStart(Register reg);
 
     /**
-     * Writes in a continuous writing transaction.
+     * Writes in a continuous write transaction.
      * 
      * @param valu          The value to be written.
      */
     void inline continuousWrite(unsigned char value) {
-        Wire.write(v);
+        Wire.write(value);
+        Wire.endTransmission(false);
     }
 
     /**
-     * Stops a continuous writing transaction.
+     * Stops a continuous write transaction.
      */
     void inline continuousWriteStop() {
         Wire.endTransmission();
     }
 
     /**
-     * Starts a continuous reading transaction.
+     * Starts a continuous read transaction.
      * 
      * @param reg           The register to read from.
      */
-    void continuousReadStart(Register reg);
+    void continuousReadStart(Register reg, int len);
 
     /**
-     * Reades from a continuous reading transaction.
+     * Reades from a continuous read transaction.
      * 
      * @return value        The value to be written.
      */
     unsigned char continuousRead();
 
     /**
-     * Stops a continuous reading transaction.
+     * Stops a continuous read transaction.
      */
     void inline continuousReadStop() {
     }

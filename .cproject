@@ -32,11 +32,11 @@
 								<option id="de.innot.avreclipse.cppcompiler.option.debug.level.1662553919" name="Generate Debugging Info" superClass="de.innot.avreclipse.cppcompiler.option.debug.level" value="de.innot.avreclipse.cppcompiler.option.debug.level.none" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.cppcompiler.option.optimize.206274982" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize" value="de.innot.avreclipse.cppcompiler.optimize.size" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.cppcompiler.option.incpath.160282970" name="Include Paths (-I)" superClass="de.innot.avreclipse.cppcompiler.option.incpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/IOExpander}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/IOExpanderMCP23X17}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/variants/standard"/>
 									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/cores/arduino"/>
 									<listOptionValue builtIn="false" value="/usr/share/arduino/libraries/Wire"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/IoExpander}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/IoExpanderMcp23x17}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.cppcompiler.input.261433392" superClass="de.innot.avreclipse.cppcompiler.input"/>
 							</tool>
@@ -65,4 +65,9 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/ArduinoIOExpanderDriver"/>
+		</configuration>
+	</storageModule>
 </cproject>

@@ -15,62 +15,79 @@
 
 void IOExpanderMCP23X17::begin(unsigned char device) {
     this->device = 0x20 | (device & 0x07);
-    this->isContinuousReading = 0;
-    this->isContinuousWriting = 0;
-    this->isContinuousEnabled = 0;
+    currentSequentialOperationMode = SEQUENTIAL_MODE_ENABLE;
     Wire.begin(device);
 }
 
 void IOExpanderMCP23X17::pinMode(unsigned char pin, bool mode) {
+    Register reg = IO_EXP_PIN_TO_IODIR_REG(pin);
+    configureRegisterBits(reg, (1 << (pin % 8)), ((mode) ? 0xff : 0x00));
+}
 
+void IOExpanderMCP23X17::portMode(Port port, unsigned char mode) {
+    Register reg = IO_EXP_PORT_TO_IODIR_REG(port);
+    writeRegister(reg, mode);
 }
 
 void IOExpanderMCP23X17::digitalWrite(unsigned char pin, bool value) {
-
+    Register reg = IO_EXP_PIN_TO_GPIO_REG(pin);
+    configureRegisterBits(reg, (1 << (pin % 8)), ((value) ? 0xff : 0x00));
 }
 
 bool IOExpanderMCP23X17::digitalRead(unsigned char pin) {
-
+    Register reg = IO_EXP_PIN_TO_GPIO_REG(pin);
+    return (bool) (readRegister(reg) & (1 << (pin % 8)));
 }
 
-void IOExpanderMCP23X17::setPin(unsigned char pin) {
-
-}
-
-void IOExpanderMCP23X17::clearPin(unsigned char pin) {
-
-}
-
-void IOExpanderMCP23X17::configureRegisterBits(Register reg, Mask mask,
-        unsigned char v) {
+void IOExpanderMCP23X17::configureRegisterBits(Register reg, unsigned char mask, unsigned char v) {
     unsigned char n;
     n = readRegister(reg);
-    n &= ~((unsigned char) mask);
-    n |= v & ((unsigned char) mask);
+    n &= ~(mask);
+    n |= v & mask;
     writeRegister(reg, n);
 }
 
 void IOExpanderMCP23X17::writeRegister(Register reg, unsigned char v) {
-    Wire.beginTransmission(address);
+    Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
     Wire.write(v);
     Wire.endTransmission();
 }
 
 unsigned char IOExpanderMCP23X17::readRegister(Register reg) {
-    Wire.beginTransmission(address);
+    Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
     Wire.endTransmission(false);
-    Wire.requestFrom(address, (unsigned char) 1);
-    while (!Wire.available()) {
-        delay(1);
-    }
+    Wire.requestFrom(device, (unsigned char) 1);
+    while (!Wire.available());
     return Wire.read();
 }
 
+void IOExpanderMCP23X17::setPinPullUp(unsigned char pin, bool pullUp) {
+    Register reg = IO_EXP_PIN_TO_GPPU_REG(pin);
+    configureRegisterBits(reg, (1 << (pin % 8)), ((pullUp) ? 0xff : 0x00));
+}
+
+void IOExpanderMCP23X17::setPinPolarity(unsigned char pin, bool polarity) {
+    Register reg = IO_EXP_PIN_TO_IPOL_REG(pin);
+    configureRegisterBits(reg, (1 << (pin % 8)), ((polarity) ? 0xff : 0x00));
+}
+
+void IOExpanderMCP23X17::setPinInterrupt(unsigned char pin, bool interrupt) {
+    Register reg = IO_EXP_PIN_TO_GPINTEN_REG(pin);
+    configureRegisterBits(reg, (1 << (pin % 8)), ((interrupt) ? 0xff : 0x00));
+}
+
+void IOExpanderMCP23X17::setSequentialOperationMode(SequentialOperationMode mode) {
+    if (mode != currentSequentialOperationMode) {
+        currentSequentialOperationMode = mode;
+        configureRegisterBits(IOCON, IOCON_SEQOP, mode);
+    }
+}
+
 void IOExpanderMCP23X17::continuousWriteStart(Register reg) {
-    setSequentialOperationMode(SEQUENTIAL_OP_DISABLE);
-    Wire.beginTransmission(address);
+    setSequentialOperationMode(SEQUENTIAL_MODE_DISABLE);
+    Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
 }
 
@@ -79,12 +96,12 @@ unsigned char IOExpanderMCP23X17::continuousRead() {
     return Wire.read();
 }
 
-
-void IOExpanderMCP23X17::continuousReadStart(Register reg, int len) {
-    Wire.beginTransmission(address);
+void IOExpanderMCP23X17::continuousReadStart(Register reg, int times) {
+    setSequentialOperationMode(SEQUENTIAL_MODE_DISABLE);
+    Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
     Wire.endTransmission(false);
-    Wire.requestFrom(address, len);
+    Wire.requestFrom((int) device, times);
 }
 
 #endif /* __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_CPP__ */
