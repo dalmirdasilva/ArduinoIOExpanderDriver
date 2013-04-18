@@ -15,7 +15,6 @@
 
 void IOExpanderMCP23X17::begin(unsigned char device) {
     this->device = 0x20 | (device & 0x07);
-    currentSequentialOperationMode = SEQUENTIAL_MODE_ENABLE;
     Wire.begin(device);
 }
 
@@ -76,32 +75,6 @@ void IOExpanderMCP23X17::setPinPolarity(unsigned char pin, bool polarity) {
 void IOExpanderMCP23X17::setPinInterrupt(unsigned char pin, bool interrupt) {
     Register reg = IO_EXP_PIN_TO_GPINTEN_REG(pin);
     configureRegisterBits(reg, (1 << (pin % 8)), ((interrupt) ? 0xff : 0x00));
-}
-
-void IOExpanderMCP23X17::setSequentialOperationMode(SequentialOperationMode mode) {
-    if (mode != currentSequentialOperationMode) {
-        currentSequentialOperationMode = mode;
-        configureRegisterBits(IOCON, IOCON_SEQOP, mode);
-    }
-}
-
-void IOExpanderMCP23X17::continuousWriteStart(Register reg) {
-    setSequentialOperationMode(SEQUENTIAL_MODE_DISABLE);
-    Wire.beginTransmission(device);
-    Wire.write((unsigned char) reg);
-}
-
-unsigned char IOExpanderMCP23X17::continuousRead() {
-    while (!Wire.available());
-    return Wire.read();
-}
-
-void IOExpanderMCP23X17::continuousReadStart(Register reg, int times) {
-    setSequentialOperationMode(SEQUENTIAL_MODE_DISABLE);
-    Wire.beginTransmission(device);
-    Wire.write((unsigned char) reg);
-    Wire.endTransmission(false);
-    Wire.requestFrom((int) device, times);
 }
 
 #endif /* __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_CPP__ */

@@ -33,8 +33,6 @@ class IOExpanderMCP23X17 {
      */
     unsigned char device;
 
-    unsigned char currentSequentialOperationMode;
-
 public:
 
     enum SequentialOperationMode {
@@ -217,50 +215,6 @@ public:
      * @return              The register value.
      */
     unsigned char readRegister(Register reg);
-
-    /**
-     * Starts a continuous write transaction.
-     * 
-     * @param reg           The register to write on.
-     */
-    void continuousWriteStart(Register reg);
-
-    /**
-     * Writes in a continuous write transaction.
-     * 
-     * @param valu          The value to be written.
-     */
-    void inline continuousWrite(unsigned char value) {
-        Wire.write(value);
-        Wire.endTransmission(false);
-    }
-
-    /**
-     * Stops a continuous write transaction.
-     */
-    void inline continuousWriteStop() {
-        Wire.endTransmission();
-    }
-
-    /**
-     * Starts a continuous read transaction.
-     * 
-     * @param reg           The register to read from.
-     */
-    void continuousReadStart(Register reg, int len);
-
-    /**
-     * Reades from a continuous read transaction.
-     * 
-     * @return value        The value to be written.
-     */
-    unsigned char continuousRead();
-
-    /**
-     * Stops a continuous read transaction.
-     */
-    void inline continuousReadStop() {
-    }
 };
 
 #endif /* __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_H__ */
