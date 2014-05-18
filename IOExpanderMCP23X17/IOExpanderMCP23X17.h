@@ -206,7 +206,7 @@ public:
      * @param reg           The register number.
      * @param v             The value to be used.
      */
-    void writeRegister(Register reg, unsigned char value);
+    int writeRegister(Register reg, unsigned char value);
 
     /**
      * Reades a value from a register.
@@ -214,7 +214,7 @@ public:
      * @param reg           The register number.
      * @return              The register value.
      */
-    unsigned char readRegister(Register reg);
+    int readRegister(Register reg);
 };
 
 #endif /* __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_H__ */
