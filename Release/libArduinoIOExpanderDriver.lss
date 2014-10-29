@@ -4,11 +4,11 @@ IOExpanderMCP23X17.o:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000001e6  00000000  00000000  00000034  2**0
+  0 .text         000001fe  00000000  00000000  00000034  2**0
                   CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
-  1 .data         00000000  00000000  00000000  0000021a  2**0
+  1 .data         00000002  00000000  00000000  00000232  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000000  00000000  00000000  0000021a  2**0
+  2 .bss          00000000  00000000  00000000  00000234  2**0
                   ALLOC
 Disassembly of section .text:
 
@@ -37,225 +37,235 @@ Disassembly of section .text:
   30:	60 81       	ld	r22, Z
   32:	41 e0       	ldi	r20, 0x01	; 1
   34:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  38:	80 e0       	ldi	r24, 0x00	; 0
-  3a:	90 e0       	ldi	r25, 0x00	; 0
-  3c:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  40:	89 2b       	or	r24, r25
-  42:	01 f0       	breq	.+0      	; 0x44 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE+0x44>
-  44:	80 e0       	ldi	r24, 0x00	; 0
-  46:	90 e0       	ldi	r25, 0x00	; 0
-  48:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  4c:	1f 91       	pop	r17
-  4e:	0f 91       	pop	r16
-  50:	ff 90       	pop	r15
-  52:	08 95       	ret
-
-00000054 <_ZN18IOExpanderMCP23X1711digitalReadEh>:
-  54:	1f 93       	push	r17
-  56:	16 2f       	mov	r17, r22
-  58:	68 30       	cpi	r22, 0x08	; 8
-  5a:	00 f0       	brcs	.+0      	; 0x5c <_ZN18IOExpanderMCP23X1711digitalReadEh+0x8>
-  5c:	63 e1       	ldi	r22, 0x13	; 19
-  5e:	00 c0       	rjmp	.+0      	; 0x60 <_ZN18IOExpanderMCP23X1711digitalReadEh+0xc>
-  60:	62 e1       	ldi	r22, 0x12	; 18
+  38:	00 c0       	rjmp	.+0      	; 0x3a <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE+0x3a>
+  3a:	80 e0       	ldi	r24, 0x00	; 0
+  3c:	90 e0       	ldi	r25, 0x00	; 0
+  3e:	60 e0       	ldi	r22, 0x00	; 0
+  40:	70 e0       	ldi	r23, 0x00	; 0
+  42:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  46:	64 e6       	ldi	r22, 0x64	; 100
+  48:	70 e0       	ldi	r23, 0x00	; 0
+  4a:	80 e0       	ldi	r24, 0x00	; 0
+  4c:	90 e0       	ldi	r25, 0x00	; 0
+  4e:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  52:	80 e0       	ldi	r24, 0x00	; 0
+  54:	90 e0       	ldi	r25, 0x00	; 0
+  56:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  5a:	89 2b       	or	r24, r25
+  5c:	01 f0       	breq	.+0      	; 0x5e <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE+0x5e>
+  5e:	80 e0       	ldi	r24, 0x00	; 0
+  60:	90 e0       	ldi	r25, 0x00	; 0
   62:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  66:	90 e0       	ldi	r25, 0x00	; 0
-  68:	17 70       	andi	r17, 0x07	; 7
-  6a:	00 c0       	rjmp	.+0      	; 0x6c <_ZN18IOExpanderMCP23X1711digitalReadEh+0x18>
-  6c:	95 95       	asr	r25
-  6e:	87 95       	ror	r24
-  70:	1a 95       	dec	r17
-  72:	02 f4       	brpl	.+0      	; 0x74 <_ZN18IOExpanderMCP23X1711digitalReadEh+0x20>
-  74:	81 70       	andi	r24, 0x01	; 1
-  76:	1f 91       	pop	r17
-  78:	08 95       	ret
+  66:	1f 91       	pop	r17
+  68:	0f 91       	pop	r16
+  6a:	ff 90       	pop	r15
+  6c:	08 95       	ret
 
-0000007a <_ZN18IOExpanderMCP23X1713writeRegisterENS_8RegisterEh>:
-  7a:	ef 92       	push	r14
-  7c:	ff 92       	push	r15
-  7e:	0f 93       	push	r16
-  80:	1f 93       	push	r17
-  82:	fc 01       	movw	r30, r24
-  84:	f6 2e       	mov	r15, r22
-  86:	e4 2e       	mov	r14, r20
-  88:	00 e0       	ldi	r16, 0x00	; 0
-  8a:	10 e0       	ldi	r17, 0x00	; 0
-  8c:	c8 01       	movw	r24, r16
-  8e:	60 81       	ld	r22, Z
-  90:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  94:	c8 01       	movw	r24, r16
-  96:	6f 2d       	mov	r22, r15
-  98:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  9c:	c8 01       	movw	r24, r16
-  9e:	6e 2d       	mov	r22, r14
-  a0:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  a4:	c8 01       	movw	r24, r16
-  a6:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  aa:	1f 91       	pop	r17
-  ac:	0f 91       	pop	r16
-  ae:	ff 90       	pop	r15
-  b0:	ef 90       	pop	r14
-  b2:	08 95       	ret
+0000006e <_ZN18IOExpanderMCP23X1711digitalReadEh>:
+  6e:	1f 93       	push	r17
+  70:	16 2f       	mov	r17, r22
+  72:	68 30       	cpi	r22, 0x08	; 8
+  74:	00 f0       	brcs	.+0      	; 0x76 <_ZN18IOExpanderMCP23X1711digitalReadEh+0x8>
+  76:	63 e1       	ldi	r22, 0x13	; 19
+  78:	00 c0       	rjmp	.+0      	; 0x7a <_ZN18IOExpanderMCP23X1711digitalReadEh+0xc>
+  7a:	62 e1       	ldi	r22, 0x12	; 18
+  7c:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  80:	90 e0       	ldi	r25, 0x00	; 0
+  82:	17 70       	andi	r17, 0x07	; 7
+  84:	00 c0       	rjmp	.+0      	; 0x86 <_ZN18IOExpanderMCP23X1711digitalReadEh+0x18>
+  86:	95 95       	asr	r25
+  88:	87 95       	ror	r24
+  8a:	1a 95       	dec	r17
+  8c:	02 f4       	brpl	.+0      	; 0x8e <_ZN18IOExpanderMCP23X1711digitalReadEh+0x20>
+  8e:	81 70       	andi	r24, 0x01	; 1
+  90:	1f 91       	pop	r17
+  92:	08 95       	ret
 
-000000b4 <_ZN18IOExpanderMCP23X1721configureRegisterBitsENS_8RegisterEhh>:
-  b4:	df 92       	push	r13
-  b6:	ef 92       	push	r14
-  b8:	ff 92       	push	r15
-  ba:	0f 93       	push	r16
-  bc:	1f 93       	push	r17
-  be:	7c 01       	movw	r14, r24
-  c0:	d6 2e       	mov	r13, r22
-  c2:	04 2f       	mov	r16, r20
-  c4:	12 2f       	mov	r17, r18
-  c6:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  ca:	40 2f       	mov	r20, r16
-  cc:	40 95       	com	r20
-  ce:	48 23       	and	r20, r24
-  d0:	10 23       	and	r17, r16
-  d2:	41 2b       	or	r20, r17
-  d4:	c7 01       	movw	r24, r14
-  d6:	6d 2d       	mov	r22, r13
-  d8:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
-  dc:	1f 91       	pop	r17
-  de:	0f 91       	pop	r16
-  e0:	ff 90       	pop	r15
-  e2:	ef 90       	pop	r14
-  e4:	df 90       	pop	r13
-  e6:	08 95       	ret
+00000094 <_ZN18IOExpanderMCP23X1713writeRegisterENS_8RegisterEh>:
+  94:	ef 92       	push	r14
+  96:	ff 92       	push	r15
+  98:	0f 93       	push	r16
+  9a:	1f 93       	push	r17
+  9c:	fc 01       	movw	r30, r24
+  9e:	f6 2e       	mov	r15, r22
+  a0:	e4 2e       	mov	r14, r20
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	10 e0       	ldi	r17, 0x00	; 0
+  a6:	c8 01       	movw	r24, r16
+  a8:	60 81       	ld	r22, Z
+  aa:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  ae:	c8 01       	movw	r24, r16
+  b0:	6f 2d       	mov	r22, r15
+  b2:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  b6:	c8 01       	movw	r24, r16
+  b8:	6e 2d       	mov	r22, r14
+  ba:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  be:	c8 01       	movw	r24, r16
+  c0:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  c4:	1f 91       	pop	r17
+  c6:	0f 91       	pop	r16
+  c8:	ff 90       	pop	r15
+  ca:	ef 90       	pop	r14
+  cc:	08 95       	ret
 
-000000e8 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb>:
-  e8:	68 30       	cpi	r22, 0x08	; 8
-  ea:	00 f0       	brcs	.+0      	; 0xec <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x4>
-  ec:	35 e0       	ldi	r19, 0x05	; 5
-  ee:	00 c0       	rjmp	.+0      	; 0xf0 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x8>
-  f0:	34 e0       	ldi	r19, 0x04	; 4
-  f2:	44 23       	and	r20, r20
-  f4:	01 f4       	brne	.+0      	; 0xf6 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0xe>
-  f6:	20 e0       	ldi	r18, 0x00	; 0
-  f8:	00 c0       	rjmp	.+0      	; 0xfa <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x12>
-  fa:	2f ef       	ldi	r18, 0xFF	; 255
-  fc:	67 70       	andi	r22, 0x07	; 7
-  fe:	41 e0       	ldi	r20, 0x01	; 1
- 100:	50 e0       	ldi	r21, 0x00	; 0
- 102:	00 c0       	rjmp	.+0      	; 0x104 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x1c>
- 104:	44 0f       	add	r20, r20
- 106:	55 1f       	adc	r21, r21
- 108:	6a 95       	dec	r22
- 10a:	02 f4       	brpl	.+0      	; 0x10c <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x24>
- 10c:	63 2f       	mov	r22, r19
- 10e:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 112:	08 95       	ret
+000000ce <_ZN18IOExpanderMCP23X1721configureRegisterBitsENS_8RegisterEhh>:
+  ce:	df 92       	push	r13
+  d0:	ef 92       	push	r14
+  d2:	ff 92       	push	r15
+  d4:	0f 93       	push	r16
+  d6:	1f 93       	push	r17
+  d8:	7c 01       	movw	r14, r24
+  da:	d6 2e       	mov	r13, r22
+  dc:	04 2f       	mov	r16, r20
+  de:	12 2f       	mov	r17, r18
+  e0:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  e4:	40 2f       	mov	r20, r16
+  e6:	40 95       	com	r20
+  e8:	48 23       	and	r20, r24
+  ea:	10 23       	and	r17, r16
+  ec:	41 2b       	or	r20, r17
+  ee:	c7 01       	movw	r24, r14
+  f0:	6d 2d       	mov	r22, r13
+  f2:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+  f6:	1f 91       	pop	r17
+  f8:	0f 91       	pop	r16
+  fa:	ff 90       	pop	r15
+  fc:	ef 90       	pop	r14
+  fe:	df 90       	pop	r13
+ 100:	08 95       	ret
 
-00000114 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb>:
- 114:	68 30       	cpi	r22, 0x08	; 8
- 116:	00 f0       	brcs	.+0      	; 0x118 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x4>
- 118:	33 e0       	ldi	r19, 0x03	; 3
- 11a:	00 c0       	rjmp	.+0      	; 0x11c <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x8>
- 11c:	32 e0       	ldi	r19, 0x02	; 2
- 11e:	44 23       	and	r20, r20
- 120:	01 f4       	brne	.+0      	; 0x122 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0xe>
- 122:	20 e0       	ldi	r18, 0x00	; 0
- 124:	00 c0       	rjmp	.+0      	; 0x126 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x12>
- 126:	2f ef       	ldi	r18, 0xFF	; 255
- 128:	67 70       	andi	r22, 0x07	; 7
- 12a:	41 e0       	ldi	r20, 0x01	; 1
- 12c:	50 e0       	ldi	r21, 0x00	; 0
- 12e:	00 c0       	rjmp	.+0      	; 0x130 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x1c>
- 130:	44 0f       	add	r20, r20
- 132:	55 1f       	adc	r21, r21
- 134:	6a 95       	dec	r22
- 136:	02 f4       	brpl	.+0      	; 0x138 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x24>
- 138:	63 2f       	mov	r22, r19
- 13a:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 13e:	08 95       	ret
+00000102 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb>:
+ 102:	68 30       	cpi	r22, 0x08	; 8
+ 104:	00 f0       	brcs	.+0      	; 0x106 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x4>
+ 106:	35 e0       	ldi	r19, 0x05	; 5
+ 108:	00 c0       	rjmp	.+0      	; 0x10a <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x8>
+ 10a:	34 e0       	ldi	r19, 0x04	; 4
+ 10c:	44 23       	and	r20, r20
+ 10e:	01 f4       	brne	.+0      	; 0x110 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0xe>
+ 110:	20 e0       	ldi	r18, 0x00	; 0
+ 112:	00 c0       	rjmp	.+0      	; 0x114 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x12>
+ 114:	2f ef       	ldi	r18, 0xFF	; 255
+ 116:	67 70       	andi	r22, 0x07	; 7
+ 118:	41 e0       	ldi	r20, 0x01	; 1
+ 11a:	50 e0       	ldi	r21, 0x00	; 0
+ 11c:	00 c0       	rjmp	.+0      	; 0x11e <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x1c>
+ 11e:	44 0f       	add	r20, r20
+ 120:	55 1f       	adc	r21, r21
+ 122:	6a 95       	dec	r22
+ 124:	02 f4       	brpl	.+0      	; 0x126 <_ZN18IOExpanderMCP23X1715setPinInterruptEhb+0x24>
+ 126:	63 2f       	mov	r22, r19
+ 128:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 12c:	08 95       	ret
 
-00000140 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb>:
- 140:	68 30       	cpi	r22, 0x08	; 8
- 142:	00 f0       	brcs	.+0      	; 0x144 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x4>
- 144:	3d e0       	ldi	r19, 0x0D	; 13
- 146:	00 c0       	rjmp	.+0      	; 0x148 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x8>
- 148:	3c e0       	ldi	r19, 0x0C	; 12
- 14a:	44 23       	and	r20, r20
- 14c:	01 f4       	brne	.+0      	; 0x14e <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0xe>
- 14e:	20 e0       	ldi	r18, 0x00	; 0
- 150:	00 c0       	rjmp	.+0      	; 0x152 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x12>
- 152:	2f ef       	ldi	r18, 0xFF	; 255
- 154:	67 70       	andi	r22, 0x07	; 7
- 156:	41 e0       	ldi	r20, 0x01	; 1
- 158:	50 e0       	ldi	r21, 0x00	; 0
- 15a:	00 c0       	rjmp	.+0      	; 0x15c <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x1c>
- 15c:	44 0f       	add	r20, r20
- 15e:	55 1f       	adc	r21, r21
- 160:	6a 95       	dec	r22
- 162:	02 f4       	brpl	.+0      	; 0x164 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x24>
- 164:	63 2f       	mov	r22, r19
- 166:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 16a:	08 95       	ret
+0000012e <_ZN18IOExpanderMCP23X1714setPinPolarityEhb>:
+ 12e:	68 30       	cpi	r22, 0x08	; 8
+ 130:	00 f0       	brcs	.+0      	; 0x132 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x4>
+ 132:	33 e0       	ldi	r19, 0x03	; 3
+ 134:	00 c0       	rjmp	.+0      	; 0x136 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x8>
+ 136:	32 e0       	ldi	r19, 0x02	; 2
+ 138:	44 23       	and	r20, r20
+ 13a:	01 f4       	brne	.+0      	; 0x13c <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0xe>
+ 13c:	20 e0       	ldi	r18, 0x00	; 0
+ 13e:	00 c0       	rjmp	.+0      	; 0x140 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x12>
+ 140:	2f ef       	ldi	r18, 0xFF	; 255
+ 142:	67 70       	andi	r22, 0x07	; 7
+ 144:	41 e0       	ldi	r20, 0x01	; 1
+ 146:	50 e0       	ldi	r21, 0x00	; 0
+ 148:	00 c0       	rjmp	.+0      	; 0x14a <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x1c>
+ 14a:	44 0f       	add	r20, r20
+ 14c:	55 1f       	adc	r21, r21
+ 14e:	6a 95       	dec	r22
+ 150:	02 f4       	brpl	.+0      	; 0x152 <_ZN18IOExpanderMCP23X1714setPinPolarityEhb+0x24>
+ 152:	63 2f       	mov	r22, r19
+ 154:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 158:	08 95       	ret
 
-0000016c <_ZN18IOExpanderMCP23X1712digitalWriteEhb>:
- 16c:	68 30       	cpi	r22, 0x08	; 8
- 16e:	00 f0       	brcs	.+0      	; 0x170 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x4>
- 170:	33 e1       	ldi	r19, 0x13	; 19
- 172:	00 c0       	rjmp	.+0      	; 0x174 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x8>
- 174:	32 e1       	ldi	r19, 0x12	; 18
- 176:	44 23       	and	r20, r20
- 178:	01 f4       	brne	.+0      	; 0x17a <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0xe>
- 17a:	20 e0       	ldi	r18, 0x00	; 0
- 17c:	00 c0       	rjmp	.+0      	; 0x17e <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x12>
- 17e:	2f ef       	ldi	r18, 0xFF	; 255
- 180:	67 70       	andi	r22, 0x07	; 7
- 182:	41 e0       	ldi	r20, 0x01	; 1
- 184:	50 e0       	ldi	r21, 0x00	; 0
- 186:	00 c0       	rjmp	.+0      	; 0x188 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x1c>
- 188:	44 0f       	add	r20, r20
- 18a:	55 1f       	adc	r21, r21
- 18c:	6a 95       	dec	r22
- 18e:	02 f4       	brpl	.+0      	; 0x190 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x24>
- 190:	63 2f       	mov	r22, r19
- 192:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 196:	08 95       	ret
+0000015a <_ZN18IOExpanderMCP23X1712setPinPullUpEhb>:
+ 15a:	68 30       	cpi	r22, 0x08	; 8
+ 15c:	00 f0       	brcs	.+0      	; 0x15e <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x4>
+ 15e:	3d e0       	ldi	r19, 0x0D	; 13
+ 160:	00 c0       	rjmp	.+0      	; 0x162 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x8>
+ 162:	3c e0       	ldi	r19, 0x0C	; 12
+ 164:	44 23       	and	r20, r20
+ 166:	01 f4       	brne	.+0      	; 0x168 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0xe>
+ 168:	20 e0       	ldi	r18, 0x00	; 0
+ 16a:	00 c0       	rjmp	.+0      	; 0x16c <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x12>
+ 16c:	2f ef       	ldi	r18, 0xFF	; 255
+ 16e:	67 70       	andi	r22, 0x07	; 7
+ 170:	41 e0       	ldi	r20, 0x01	; 1
+ 172:	50 e0       	ldi	r21, 0x00	; 0
+ 174:	00 c0       	rjmp	.+0      	; 0x176 <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x1c>
+ 176:	44 0f       	add	r20, r20
+ 178:	55 1f       	adc	r21, r21
+ 17a:	6a 95       	dec	r22
+ 17c:	02 f4       	brpl	.+0      	; 0x17e <_ZN18IOExpanderMCP23X1712setPinPullUpEhb+0x24>
+ 17e:	63 2f       	mov	r22, r19
+ 180:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 184:	08 95       	ret
 
-00000198 <_ZN18IOExpanderMCP23X177pinModeEhb>:
- 198:	44 23       	and	r20, r20
- 19a:	01 f4       	brne	.+0      	; 0x19c <_ZN18IOExpanderMCP23X177pinModeEhb+0x4>
- 19c:	20 e0       	ldi	r18, 0x00	; 0
- 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <_ZN18IOExpanderMCP23X177pinModeEhb+0x8>
- 1a0:	2f ef       	ldi	r18, 0xFF	; 255
- 1a2:	30 e0       	ldi	r19, 0x00	; 0
- 1a4:	68 30       	cpi	r22, 0x08	; 8
- 1a6:	00 f0       	brcs	.+0      	; 0x1a8 <_ZN18IOExpanderMCP23X177pinModeEhb+0x10>
- 1a8:	31 e0       	ldi	r19, 0x01	; 1
- 1aa:	67 70       	andi	r22, 0x07	; 7
- 1ac:	41 e0       	ldi	r20, 0x01	; 1
- 1ae:	50 e0       	ldi	r21, 0x00	; 0
- 1b0:	00 c0       	rjmp	.+0      	; 0x1b2 <_ZN18IOExpanderMCP23X177pinModeEhb+0x1a>
- 1b2:	44 0f       	add	r20, r20
- 1b4:	55 1f       	adc	r21, r21
- 1b6:	6a 95       	dec	r22
- 1b8:	02 f4       	brpl	.+0      	; 0x1ba <_ZN18IOExpanderMCP23X177pinModeEhb+0x22>
- 1ba:	63 2f       	mov	r22, r19
- 1bc:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 1c0:	08 95       	ret
+00000186 <_ZN18IOExpanderMCP23X1712digitalWriteEhb>:
+ 186:	68 30       	cpi	r22, 0x08	; 8
+ 188:	00 f0       	brcs	.+0      	; 0x18a <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x4>
+ 18a:	33 e1       	ldi	r19, 0x13	; 19
+ 18c:	00 c0       	rjmp	.+0      	; 0x18e <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x8>
+ 18e:	32 e1       	ldi	r19, 0x12	; 18
+ 190:	44 23       	and	r20, r20
+ 192:	01 f4       	brne	.+0      	; 0x194 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0xe>
+ 194:	20 e0       	ldi	r18, 0x00	; 0
+ 196:	00 c0       	rjmp	.+0      	; 0x198 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x12>
+ 198:	2f ef       	ldi	r18, 0xFF	; 255
+ 19a:	67 70       	andi	r22, 0x07	; 7
+ 19c:	41 e0       	ldi	r20, 0x01	; 1
+ 19e:	50 e0       	ldi	r21, 0x00	; 0
+ 1a0:	00 c0       	rjmp	.+0      	; 0x1a2 <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x1c>
+ 1a2:	44 0f       	add	r20, r20
+ 1a4:	55 1f       	adc	r21, r21
+ 1a6:	6a 95       	dec	r22
+ 1a8:	02 f4       	brpl	.+0      	; 0x1aa <_ZN18IOExpanderMCP23X1712digitalWriteEhb+0x24>
+ 1aa:	63 2f       	mov	r22, r19
+ 1ac:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 1b0:	08 95       	ret
 
-000001c2 <_ZN18IOExpanderMCP23X178portModeENS_4PortEh>:
- 1c2:	20 e0       	ldi	r18, 0x00	; 0
- 1c4:	62 31       	cpi	r22, 0x12	; 18
- 1c6:	01 f0       	breq	.+0      	; 0x1c8 <_ZN18IOExpanderMCP23X178portModeENS_4PortEh+0x6>
- 1c8:	21 e0       	ldi	r18, 0x01	; 1
- 1ca:	62 2f       	mov	r22, r18
- 1cc:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 1d0:	08 95       	ret
+000001b2 <_ZN18IOExpanderMCP23X177pinModeEhb>:
+ 1b2:	44 23       	and	r20, r20
+ 1b4:	01 f4       	brne	.+0      	; 0x1b6 <_ZN18IOExpanderMCP23X177pinModeEhb+0x4>
+ 1b6:	20 e0       	ldi	r18, 0x00	; 0
+ 1b8:	00 c0       	rjmp	.+0      	; 0x1ba <_ZN18IOExpanderMCP23X177pinModeEhb+0x8>
+ 1ba:	2f ef       	ldi	r18, 0xFF	; 255
+ 1bc:	30 e0       	ldi	r19, 0x00	; 0
+ 1be:	68 30       	cpi	r22, 0x08	; 8
+ 1c0:	00 f0       	brcs	.+0      	; 0x1c2 <_ZN18IOExpanderMCP23X177pinModeEhb+0x10>
+ 1c2:	31 e0       	ldi	r19, 0x01	; 1
+ 1c4:	67 70       	andi	r22, 0x07	; 7
+ 1c6:	41 e0       	ldi	r20, 0x01	; 1
+ 1c8:	50 e0       	ldi	r21, 0x00	; 0
+ 1ca:	00 c0       	rjmp	.+0      	; 0x1cc <_ZN18IOExpanderMCP23X177pinModeEhb+0x1a>
+ 1cc:	44 0f       	add	r20, r20
+ 1ce:	55 1f       	adc	r21, r21
+ 1d0:	6a 95       	dec	r22
+ 1d2:	02 f4       	brpl	.+0      	; 0x1d4 <_ZN18IOExpanderMCP23X177pinModeEhb+0x22>
+ 1d4:	63 2f       	mov	r22, r19
+ 1d6:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 1da:	08 95       	ret
 
-000001d2 <_ZN18IOExpanderMCP23X175beginEh>:
- 1d2:	fc 01       	movw	r30, r24
- 1d4:	86 2f       	mov	r24, r22
- 1d6:	87 70       	andi	r24, 0x07	; 7
- 1d8:	80 62       	ori	r24, 0x20	; 32
- 1da:	80 83       	st	Z, r24
- 1dc:	80 e0       	ldi	r24, 0x00	; 0
- 1de:	90 e0       	ldi	r25, 0x00	; 0
- 1e0:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
- 1e4:	08 95       	ret
+000001dc <_ZN18IOExpanderMCP23X178portModeENS_4PortEh>:
+ 1dc:	20 e0       	ldi	r18, 0x00	; 0
+ 1de:	62 31       	cpi	r22, 0x12	; 18
+ 1e0:	01 f0       	breq	.+0      	; 0x1e2 <_ZN18IOExpanderMCP23X178portModeENS_4PortEh+0x6>
+ 1e2:	21 e0       	ldi	r18, 0x01	; 1
+ 1e4:	62 2f       	mov	r22, r18
+ 1e6:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 1ea:	08 95       	ret
+
+000001ec <_ZN18IOExpanderMCP23X175beginEh>:
+ 1ec:	fc 01       	movw	r30, r24
+ 1ee:	67 70       	andi	r22, 0x07	; 7
+ 1f0:	60 62       	ori	r22, 0x20	; 32
+ 1f2:	60 83       	st	Z, r22
+ 1f4:	80 e0       	ldi	r24, 0x00	; 0
+ 1f6:	90 e0       	ldi	r25, 0x00	; 0
+ 1f8:	0e 94 00 00 	call	0	; 0x0 <_ZN18IOExpanderMCP23X1712readRegisterENS_8RegisterE>
+ 1fc:	08 95       	ret
 
 IOExpander.o:     file format elf32-avr
 

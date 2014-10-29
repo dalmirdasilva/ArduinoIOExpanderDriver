@@ -15,7 +15,7 @@
 
 void IOExpanderMCP23X17::begin(unsigned char device) {
     this->device = 0x20 | (device & 0x07);
-    Wire.begin(device);
+    Wire.begin();
 }
 
 void IOExpanderMCP23X17::pinMode(unsigned char pin, bool mode) {
@@ -46,19 +46,28 @@ void IOExpanderMCP23X17::configureRegisterBits(Register reg, unsigned char mask,
     writeRegister(reg, n);
 }
 
-void IOExpanderMCP23X17::writeRegister(Register reg, unsigned char v) {
+int IOExpanderMCP23X17::writeRegister(Register reg, unsigned char v) {
     Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
     Wire.write(v);
-    Wire.endTransmission();
+    return Wire.endTransmission();
 }
 
-unsigned char IOExpanderMCP23X17::readRegister(Register reg) {
+int IOExpanderMCP23X17::readRegister(Register reg) {
+    char tries = 10;
     Wire.beginTransmission(device);
     Wire.write((unsigned char) reg);
-    Wire.endTransmission(false);
+    char status = Wire.endTransmission(false);
+    if (status != 0) {
+        return -(status);
+    }
     Wire.requestFrom(device, (unsigned char) 1);
-    while (!Wire.available());
+    while (!Wire.available() && --tries > 0) {
+        delayMicroseconds(1);
+    }
+    if (tries == 0) {
+        return -5;
+    }
     return Wire.read();
 }
 
