@@ -12,6 +12,8 @@
 #define __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_CPP__ 1
 
 #include "IOExpanderMCP23X17.h"
+#include <Arduino.h>
+#include <Wire.h>
 
 void IOExpanderMCP23X17::begin(unsigned char device) {
     this->device = 0x20 | (device & 0x07);
