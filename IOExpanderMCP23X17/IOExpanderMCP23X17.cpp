@@ -15,9 +15,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-void IOExpanderMCP23X17::begin(unsigned char device) {
-    this->device = 0x20 | (device & 0x07);
-    Wire.begin();
+IOExpanderMCP23X17::IOExpanderMCP23X17(unsigned char device)
+        : RegisterBasedWiredDevice(0x20 | (device & 0x07)) {
 }
 
 void IOExpanderMCP23X17::pinMode(unsigned char pin, bool mode) {
@@ -38,39 +37,6 @@ void IOExpanderMCP23X17::digitalWrite(unsigned char pin, bool value) {
 bool IOExpanderMCP23X17::digitalRead(unsigned char pin) {
     Register reg = IO_EXP_PIN_TO_GPIO_REG(pin);
     return (bool) (readRegister(reg) & (1 << (pin % 8)));
-}
-
-void IOExpanderMCP23X17::configureRegisterBits(Register reg, unsigned char mask, unsigned char v) {
-    unsigned char n;
-    n = readRegister(reg);
-    n &= ~(mask);
-    n |= v & mask;
-    writeRegister(reg, n);
-}
-
-int IOExpanderMCP23X17::writeRegister(Register reg, unsigned char v) {
-    Wire.beginTransmission(device);
-    Wire.write((unsigned char) reg);
-    Wire.write(v);
-    return Wire.endTransmission();
-}
-
-int IOExpanderMCP23X17::readRegister(Register reg) {
-    char tries = 10;
-    Wire.beginTransmission(device);
-    Wire.write((unsigned char) reg);
-    char status = Wire.endTransmission(false);
-    if (status != 0) {
-        return -(status);
-    }
-    Wire.requestFrom(device, (unsigned char) 1);
-    while (!Wire.available() && --tries > 0) {
-        delayMicroseconds(1);
-    }
-    if (tries == 0) {
-        return -5;
-    }
-    return Wire.read();
 }
 
 void IOExpanderMCP23X17::setPinPullUp(unsigned char pin, bool pullUp) {

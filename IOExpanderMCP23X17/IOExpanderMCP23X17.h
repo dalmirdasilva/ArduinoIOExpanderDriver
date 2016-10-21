@@ -14,6 +14,7 @@
 #include <Wire.h>
 #include <Arduino.h>
 #include <IOExpander.h>
+#include <RegisterBasedWiredDevice.h>
 
 #define IO_EX_MAX_PINS                          16
 
@@ -26,12 +27,7 @@
 #define IO_EXP_PIN_TO_IPOL_REG(p)               ((p) < 8 ? IPOLA : IPOLB)
 #define IO_EXP_PIN_TO_GPINTEN_REG(p)            ((p) < 8 ? GPINTENA : GPINTENB)
 
-class IOExpanderMCP23X17 {
-
-    /**
-     * I2C device address.
-     */
-    unsigned char device;
+class IOExpanderMCP23X17 : public RegisterBasedWiredDevice {
 
 public:
 
@@ -83,30 +79,30 @@ public:
     };
 
     enum Pin {
-        PIN_A0 = 0,
-        PIN_A1 = 1,
-        PIN_A2 = 2,
-        PIN_A3 = 3,
-        PIN_A4 = 4,
-        PIN_A5 = 5,
-        PIN_A6 = 6,
-        PIN_A7 = 7,
-        PIN_B0 = 8,
-        PIN_B1 = 9,
-        PIN_B2 = 10,
-        PIN_B3 = 11,
-        PIN_B4 = 12,
-        PIN_B5 = 13,
-        PIN_B6 = 14,
-        PIN_B7 = 15
+        IO_PIN_A0 = 0,
+        IO_PIN_A1 = 1,
+        IO_PIN_A2 = 2,
+        IO_PIN_A3 = 3,
+        IO_PIN_A4 = 4,
+        IO_PIN_A5 = 5,
+        IO_PIN_A6 = 6,
+        IO_PIN_A7 = 7,
+        IO_PIN_B0 = 8,
+        IO_PIN_B1 = 9,
+        IO_PIN_B2 = 10,
+        IO_PIN_B3 = 11,
+        IO_PIN_B4 = 12,
+        IO_PIN_B5 = 13,
+        IO_PIN_B6 = 14,
+        IO_PIN_B7 = 15
     };
 
     /**
-     * Begins the IO expander divice.
+     * Public constructor.
      *
      * @param device            The device address, or just the last 3 pins combination;
      */
-    void begin(unsigned char device);
+    IOExpanderMCP23X17(unsigned char device);
 
     /**
      * Configures the specified pin to behave either as an input or an output.
@@ -189,32 +185,6 @@ public:
      * @param mode              The operation mode.
      */
     void setSequentialOperationMode(SequentialOperationMode mode);
-
-    /**
-     * Configures a registers.
-     *
-     * @param reg           The register number.
-     * @param mask          The mask to be used.
-     * @param v             The value to be used.
-     */
-    void configureRegisterBits(Register reg, unsigned char mask,
-            unsigned char value);
-
-    /**
-     * Writes a value to a register.
-     *
-     * @param reg           The register number.
-     * @param v             The value to be used.
-     */
-    int writeRegister(Register reg, unsigned char value);
-
-    /**
-     * Reades a value from a register.
-     *
-     * @param reg           The register number.
-     * @return              The register value.
-     */
-    int readRegister(Register reg);
 };
 
 #endif /* __ARDUINO_DRIVER_IO_EXPANDER_MCP23X17_H__ */
