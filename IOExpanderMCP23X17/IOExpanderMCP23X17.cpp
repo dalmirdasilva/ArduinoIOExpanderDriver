@@ -16,7 +16,7 @@
 #include <Wire.h>
 
 IOExpanderMCP23X17::IOExpanderMCP23X17(unsigned char device)
-        : RegisterBasedWiredDevice(0x20 | (device & 0x07)) {
+        : RegisterBasedWiredDevice(MCP23X17_ADDRESS | (device & 0x07)) {
 }
 
 void IOExpanderMCP23X17::pinMode(unsigned char pin, bool mode) {

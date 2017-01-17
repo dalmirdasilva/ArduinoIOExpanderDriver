@@ -18,6 +18,8 @@
 
 #define IO_EX_MAX_PINS                          16
 
+#define MCP23X17_ADDRESS                        0x20
+
 #define IO_EXP_NORMALIZE_PIN(p)                 (((p) >= IO_EX_MAX_PINS ? IO_EX_MAX_PINS - 1 : (((p) < 0) ? 0 : (p)))
 #define IO_EXP_IS_PIN_VALID(p)                  ((p) < IO_EX_MAX_IO && (p) >= 0)
 #define IO_EXP_PIN_TO_GPIO_REG(p)               ((p) < 8 ? GPIOA : GPIOB)
