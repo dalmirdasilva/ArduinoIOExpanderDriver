@@ -104,7 +104,7 @@ public:
      *
      * @param device            The device address, or just the last 3 pins combination;
      */
-    IOExpanderMCP23X17(unsigned char device);
+    IOExpanderMCP23X17(unsigned char deviceAddress);
 
     /**
      * Configures the specified pin to behave either as an input or an output.

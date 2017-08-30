@@ -15,8 +15,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-IOExpanderMCP23X17::IOExpanderMCP23X17(unsigned char device)
-        : RegisterBasedWiredDevice(MCP23X17_ADDRESS | (device & 0x07)) {
+IOExpanderMCP23X17::IOExpanderMCP23X17(unsigned char deviceAddress)
+        : RegisterBasedWiredDevice(MCP23X17_ADDRESS | (deviceAddress & 0x07)) {
 }
 
 void IOExpanderMCP23X17::pinMode(unsigned char pin, bool mode) {
